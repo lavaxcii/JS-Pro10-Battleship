@@ -3,17 +3,27 @@ let shipsData = [];
 const Ship = (nrSmallShips, nrMediumShips, nrLargeShips) => {
   let length;
   let location = [];
-  let hit = () => {
-    // this function should be composed in all ship objects pushed
-  }
 
-  let smallShip = () => {
+  const hit = () => {
+    return this.length = this.length - 1;
+    // this.location[coord];
+  };
+
+  const isSunk = () => {
+    if (this.length === 0) {
+      return alert(`${this.name} is sunk!`)
+    };
+  };
+
+  const smallShip = () => {
     length = 3;
     for (let i = 1; i <= nrSmallShips; i++) {
       shipsData.push({ 
         name: `SmallShip${i}`,
         length: length,
-        location: location
+        location: location,
+        hit: hit,
+        isSunk: isSunk
         })
     }
   }
@@ -26,9 +36,11 @@ const Ship = (nrSmallShips, nrMediumShips, nrLargeShips) => {
 
   }
 
-  return {
-  }
+  return { smallShip }
 }
+
+module.exports = { Ship, shipsData };
+
 
 // ovdje je gameStart btn click gdje se onda putem Ship FFa naprave 
 // objekt brodovi svih veličina i spakuju u shipsData gdje se onda
