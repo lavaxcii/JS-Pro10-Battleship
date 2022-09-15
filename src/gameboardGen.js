@@ -4,6 +4,31 @@ const GameBoard = () => {
   let smallShipsData = [];
   let mediumShipsData = [];
   let largeShipsData = [];
+  let gameBoardSqrs = [];
+
+  const Squares = function(westNr, northNr) {
+    let west = westNr;
+    let north = northNr;
+    let shipAtLocation = '';
+
+    return { west, north, shipAtLocation }
+  }
+
+  // razmisli da bude jedinstvena koordinata i da umjesto
+  // northNumbera bude slovo
+  const generateSquares = function() {
+    let westNumber = 1;
+    for (let i = 1; i <= 10; i++) {
+      gameBoardSqrs.push(Squares(westNumber, i));
+      if (i >= 10) {
+        westNumber++;
+        i = 0;
+      };
+      if (westNumber === 11) {
+        return
+      }
+    };
+  };
 
   const generateShips = function() {
     let shipNr = 0;
@@ -25,7 +50,12 @@ const GameBoard = () => {
     };
   };
 
-  return { smallShipsData, mediumShipsData, largeShipsData, generateShips }
+  const recieveAttack = function() {
+    // takes coord and determens if ship is hit or not
+    // 
+  }
+
+  return { smallShipsData, mediumShipsData, largeShipsData, gameBoardSqrs, generateShips, generateSquares }
 };
 
 export default GameBoard;
