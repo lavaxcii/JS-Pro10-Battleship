@@ -7,7 +7,13 @@ module.exports = {
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
+    sourceMapFilename: "main.js.map"
   },
+  // plugins: [
+  //   new HtmlWebpackPlugin({
+  //   title: 'Development',
+  //   }),
+  // ],
   // watch: true,
   module: {
     rules: [
@@ -31,6 +37,23 @@ module.exports = {
         test: /\.xml$/i,
         use: ['xml-loader'],
       },
+      {
+        test: /\.js$/,
+        enforce: "pre",
+        use: ["source-map-loader"],
+      },
     ],
+  },
+  devServer: {
+    // open: {
+    //   app: {
+    //     name: 'google-chrome',
+    //   },
+    // },
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
+    compress: true,
+    port: 9000,
   },
 };

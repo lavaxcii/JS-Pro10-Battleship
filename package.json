@@ -2,11 +2,12 @@
   "name": "js-pro10-battleship",
   "version": "1.0.0",
   "description": "JavaScript Project.",
-  "private": true,
+  "private": false,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --watch",
-    "build": "webpack"
+    "build": "webpack",
+    "devS": "webpack-dev-server --open"
   },
   "repository": {
     "type": "git",
@@ -21,7 +22,9 @@
   "homepage": "https://github.com/lavaxcii/JS-Pro10-Battleship#readme",
   "devDependencies": {
     "css-loader": "^6.7.1",
+    "source-map-loader": "^4.0.0",
     "style-loader": "^3.3.1",
-    "webpack-cli": "^4.10.0"
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.0"
   }
 }

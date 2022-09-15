@@ -1,45 +1,29 @@
-let shipsData = [];
-
-const Ship = (nrSmallShips, nrMediumShips, nrLargeShips) => {
-  let length;
+const Ship = (shipSizeLength, shipNrForName, shipNr) => {
+  let name = `${shipNrForName}`;
+  let shipLength = shipSizeLength;
+  let shipIndex = shipNr - 1;
   let location = [];
 
-  const hit = () => {
-    return this.length = this.length - 1;
-    // this.location[coord];
+  const getLength = function() {
+    return this.shipLength;
   };
 
-  const isSunk = () => {
-    if (this.length === 0) {
-      return alert(`${this.name} is sunk!`)
+  const hit = function() {
+    this.shipLength -= 1;
+  };
+
+  const isSunk = function() {
+    if (this.shipLength === 0) {
+      console.log(`${this.name} is sunk!`);
+    } else {
+      console.log(`${this.name} is ALIVE!`);
     };
   };
 
-  const smallShip = () => {
-    length = 3;
-    for (let i = 1; i <= nrSmallShips; i++) {
-      shipsData.push({ 
-        name: `SmallShip${i}`,
-        length: length,
-        location: location,
-        hit: hit,
-        isSunk: isSunk
-        })
-    }
-  }
-
-  let mediumShip = () => {
-
-  }
-
-  let largeShip = () => {
-
-  }
-
-  return { smallShip }
+  return { name, shipLength, shipIndex, location, getLength, isSunk, hit }
 }
 
-module.exports = { Ship, shipsData };
+export default Ship;
 
 
 // ovdje je gameStart btn click gdje se onda putem Ship FFa naprave 
