@@ -1,21 +1,24 @@
 import Ship from './shipGen';
 
 const GameBoard = () => {
-  let smallShipsData = [];
-  let mediumShipsData = [];
-  let largeShipsData = [];
+  let shipsData = [];
+  // let smallShipsData = [];
+  // let mediumShipsData = [];
+  // let largeShipsData = [];
   let gameBoardSqrs = [];
 
   const Squares = function(westNr, northNr) {
     let west = westNr;
     let north = northNr;
+    // should it be stringeth or nay?
+    let westByNorth = `${westNr}${northNr}`;
     let shipAtLocation = '';
+    let locationHit = false;
+    let shipAnchored = false;
 
-    return { west, north, shipAtLocation }
-  }
+    return { west, north, westByNorth, shipAtLocation, locationHit, shipAnchored }
+  };
 
-  // razmisli da bude jedinstvena koordinata i da umjesto
-  // northNumbera bude slovo
   const generateSquares = function() {
     let westNumber = 1;
     for (let i = 1; i <= 10; i++) {
@@ -26,7 +29,7 @@ const GameBoard = () => {
       };
       if (westNumber === 11) {
         return
-      }
+      };
     };
   };
 
@@ -34,28 +37,48 @@ const GameBoard = () => {
     let shipNr = 0;
     for (let i = 1; i <= 3; i++) {
       shipNr += 1;
-      smallShipsData.push(Ship(2, `SmallShip${shipNr.toString()}`, shipNr));
+      shipsData.push(Ship(2, `SmallShip${shipNr.toString()}`, shipNr));
     };
     (shipNr > 0) ? shipNr = 0 : null;
 
     for (let i = 1; i <= 3; i++) {
       shipNr += 1;
-      mediumShipsData.push(Ship(3, `MediumShip${shipNr.toString()}`, shipNr));
+      shipsData.push(Ship(3, `MediumShip${shipNr.toString()}`, shipNr));
     };
     (shipNr > 0) ? shipNr = 0 : null;
 
     for (let i = 1; i <= 1; i++) {
       shipNr += 1;
-      largeShipsData.push(Ship(5, `LargeShip${shipNr.toString()}`, shipNr));
+      shipsData.push(Ship(5, `LargeShip${shipNr.toString()}`, shipNr));
     };
   };
 
-  const recieveAttack = function() {
-    // takes coord and determens if ship is hit or not
-    // 
-  }
+  const recieveAttack = function(coordinates) {
+    for (let i = 0; i < gameBoardSqrs.length; i++) {
+      if (gameBoardSqrs[i].westByNorth === coordinates && gameBoardSqrs[i].shipAnchored === true) {
+        gameBoardSqrs[i].locationHit = true;
+        for (let j = 0; j < shipsData.length; j++) { 
+          if (shipsData[j].name === gameBoardSqrs[i].shipAtLocation) {
+            shipsData[j].hit();
+          };
+        };
+      } else if (gameBoardSqrs[i].westByNorth === coordinates && gameBoardSqrs[i].locationHit === false) {
+        gameBoardSqrs[i].locationHit = true;
+      };
+    };
+  };
 
-  return { smallShipsData, mediumShipsData, largeShipsData, gameBoardSqrs, generateShips, generateSquares }
+  const checkSunkStatus = function() {
+    if (shipsData.every(function(ship) {
+        return ship.shipLength === 0
+    })) {
+      console.log('All ships are sunk!')
+    } else {
+      console.log('Some ships still afloat!')
+    };
+  };
+
+  return { shipsData, gameBoardSqrs, generateShips, generateSquares, recieveAttack, checkSunkStatus }
 };
 
 export default GameBoard;

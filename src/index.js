@@ -7,11 +7,12 @@ const playerGameBoard = GameBoard();
 // const aiGameBoard = GameBoard();
 
 playerGameBoard.generateShips();
-// console.table(playerGameBoard.smallShipsData)
+console.table(playerGameBoard.shipsData)
+playerGameBoard.checkSunkStatus();
 // console.table(playerGameBoard.mediumShipsData)
 // console.table(playerGameBoard.largeShipsData)
 
 playerGameBoard.generateSquares();
-console.table(playerGameBoard.gameBoardSqrs)
+// console.table(playerGameBoard.gameBoardSqrs)
 
 
