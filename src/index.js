@@ -1,18 +1,41 @@
 import './styleV.css';
-import GameBoard from './gameboardGen';
+import gameLoop from './mainGameLoop';
 
 // window.shipsData = shipsData
 
-const playerGameBoard = GameBoard();
+// gameLoop.message();
+
+// const playerGameBoard = GameBoard(); 
 // const aiGameBoard = GameBoard();
 
-playerGameBoard.generateShips();
-console.table(playerGameBoard.shipsData)
-playerGameBoard.checkSunkStatus();
+// playerGameBoard.generateShips();
+// console.table(playerGameBoard.shipsData)
+// playerGameBoard.checkSunkStatus();
 // console.table(playerGameBoard.mediumShipsData)
 // console.table(playerGameBoard.largeShipsData)
 
-playerGameBoard.generateSquares();
+// playerGameBoard.generateSquares();
 // console.table(playerGameBoard.gameBoardSqrs)
+gameLoop.aiPlayer.gameBoard.placeShipOnSqr('12')
+gameLoop.aiPlayer.gameBoard.placeShipOnSqr('13')
+gameLoop.aiPlayer.gameBoard.placeShipOnSqr('15')
+gameLoop.aiPlayer.gameBoard.placeShipOnSqr('16')
+gameLoop.aiPlayer.gameBoard.placeShipOnSqr('17')
+gameLoop.aiPlayer.gameBoard.placeShipOnSqr('18')
+gameLoop.aiPlayer.gameBoard.placeShipOnSqr('110')
+gameLoop.aiPlayer.gameBoard.placeShipOnSqr('21')
+
+gameLoop.aiPlayer.gameBoard.recieveAttack('15')
+gameLoop.aiPlayer.toConsole();
+gameLoop.humanPlayer.toConsole();
+gameLoop.aiPlayer.gameBoard.recieveAttack('12')
+
+console.table(gameLoop.aiPlayer.gameBoard.gameBoardSqrs)
+console.table(gameLoop.aiPlayer.gameBoard.shipsData)
+
+
+
+
+
 
 

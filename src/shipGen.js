@@ -2,7 +2,7 @@ const Ship = (shipSizeLength, shipNrForName, shipNr) => {
   let name = `${shipNrForName}`;
   let shipLength = shipSizeLength;
   let shipIndex = shipNr - 1;
-  let shipPlacedOnBoard = false;
+  // let shipPlacedOnBoard = false;
 
   const getLength = function() {
     return this.shipLength;
@@ -20,7 +20,7 @@ const Ship = (shipSizeLength, shipNrForName, shipNr) => {
     };
   };
 
-  return { name, shipLength, shipIndex, shipPlacedOnBoard, getLength, isSunk, hit }
+  return { name, shipLength, shipIndex, getLength, isSunk, hit }
 }
 
 export default Ship;

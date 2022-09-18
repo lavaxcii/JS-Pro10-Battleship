@@ -2,15 +2,11 @@ import Ship from './shipGen';
 
 const GameBoard = () => {
   let shipsData = [];
-  // let smallShipsData = [];
-  // let mediumShipsData = [];
-  // let largeShipsData = [];
   let gameBoardSqrs = [];
 
   const Squares = function(westNr, northNr) {
     let west = westNr;
     let north = northNr;
-    // should it be stringeth or nay?
     let westByNorth = `${westNr}${northNr}`;
     let shipAtLocation = '';
     let locationHit = false;
@@ -68,6 +64,17 @@ const GameBoard = () => {
     };
   };
 
+  let shipCounter = 0;
+  const placeShipOnSqr = function(coordinates) {
+    for (let i = 0; i < gameBoardSqrs.length; i++) {
+      if (gameBoardSqrs[i].westByNorth === coordinates && gameBoardSqrs[i].shipAnchored === false && shipCounter < 7) {
+        gameBoardSqrs[i].shipAtLocation = shipsData[shipCounter].name;
+        gameBoardSqrs[i].shipAnchored = true;
+        shipCounter++;
+      };
+    };
+  };
+
   const checkSunkStatus = function() {
     if (shipsData.every(function(ship) {
         return ship.shipLength === 0
@@ -78,7 +85,7 @@ const GameBoard = () => {
     };
   };
 
-  return { shipsData, gameBoardSqrs, generateShips, generateSquares, recieveAttack, checkSunkStatus }
+  return { shipsData, gameBoardSqrs, generateShips, generateSquares, recieveAttack, checkSunkStatus, placeShipOnSqr }
 };
 
 export default GameBoard;
