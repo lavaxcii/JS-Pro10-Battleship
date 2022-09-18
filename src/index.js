@@ -16,19 +16,19 @@ import gameLoop from './mainGameLoop';
 
 // playerGameBoard.generateSquares();
 // console.table(playerGameBoard.gameBoardSqrs)
-gameLoop.aiPlayer.gameBoard.placeShipOnSqr('12')
-gameLoop.aiPlayer.gameBoard.placeShipOnSqr('13')
-gameLoop.aiPlayer.gameBoard.placeShipOnSqr('15')
-gameLoop.aiPlayer.gameBoard.placeShipOnSqr('16')
-gameLoop.aiPlayer.gameBoard.placeShipOnSqr('17')
-gameLoop.aiPlayer.gameBoard.placeShipOnSqr('18')
-gameLoop.aiPlayer.gameBoard.placeShipOnSqr('110')
-gameLoop.aiPlayer.gameBoard.placeShipOnSqr('21')
+gameLoop.aiPlayer.gameBoard.placeShipOnSqr(61, 'north', 'LargeShip')
+// gameLoop.aiPlayer.gameBoard.placeShipOnSqr('13')
+// gameLoop.aiPlayer.gameBoard.placeShipOnSqr('15')
+// gameLoop.aiPlayer.gameBoard.placeShipOnSqr('16')
+// gameLoop.aiPlayer.gameBoard.placeShipOnSqr('17')
+// gameLoop.aiPlayer.gameBoard.placeShipOnSqr('18')
+// gameLoop.aiPlayer.gameBoard.placeShipOnSqr('110')
+// gameLoop.aiPlayer.gameBoard.placeShipOnSqr('21')
 
-gameLoop.aiPlayer.gameBoard.recieveAttack('15')
+// gameLoop.aiPlayer.gameBoard.recieveAttack(21)
 gameLoop.aiPlayer.toConsole();
 gameLoop.humanPlayer.toConsole();
-gameLoop.aiPlayer.gameBoard.recieveAttack('12')
+// gameLoop.aiPlayer.gameBoard.recieveAttack(11)
 
 console.table(gameLoop.aiPlayer.gameBoard.gameBoardSqrs)
 console.table(gameLoop.aiPlayer.gameBoard.shipsData)

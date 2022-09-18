@@ -7,7 +7,7 @@ const GameBoard = () => {
   const Squares = function(westNr, northNr) {
     let west = westNr;
     let north = northNr;
-    let westByNorth = `${westNr}${northNr}`;
+    let westByNorth = parseInt(`${westNr}${northNr}`);
     let shipAtLocation = '';
     let locationHit = false;
     let shipAnchored = false;
@@ -56,6 +56,7 @@ const GameBoard = () => {
         for (let j = 0; j < shipsData.length; j++) { 
           if (shipsData[j].name === gameBoardSqrs[i].shipAtLocation) {
             shipsData[j].hit();
+            shipsData[j].isSunk();
           };
         };
       } else if (gameBoardSqrs[i].westByNorth === coordinates && gameBoardSqrs[i].locationHit === false) {
@@ -64,16 +65,69 @@ const GameBoard = () => {
     };
   };
 
-  let shipCounter = 0;
-  const placeShipOnSqr = function(coordinates) {
+  const placeShipOnSqr = function (coordinates, directionOfPlacement, shipNameSize) {
+    const northSouthPlacement = function() {}
     for (let i = 0; i < gameBoardSqrs.length; i++) {
-      if (gameBoardSqrs[i].westByNorth === coordinates && gameBoardSqrs[i].shipAnchored === false && shipCounter < 7) {
-        gameBoardSqrs[i].shipAtLocation = shipsData[shipCounter].name;
-        gameBoardSqrs[i].shipAnchored = true;
-        shipCounter++;
-      };
-    };
+      if (gameBoardSqrs[i].westByNorth === coordinates && gameBoardSqrs[i].shipAnchored === false) {
+        let shipCounter = 1;
+        for (let j = 0; j < shipsData.length; j++) {
+          // console.log(shipCounter)
+          console.log(j)
+          console.log(shipsData[j].name)
+          console.log(`${shipNameSize}${shipCounter}`)
+          console.log('-----------------------------------')
+          if (directionOfPlacement === "north") {
+            if (shipsData[j].name === `${shipNameSize}${shipCounter}` && shipsData[j].name === `SmallShip${shipCounter}` && gameBoardSqrs[i - 10].north > 0 && gameBoardSqrs[i - 10].shipAnchored === false) {
+              gameBoardSqrs[i].shipAtLocation = shipsData[j].name;
+              gameBoardSqrs[i - 10].shipAtLocation = shipsData[j].name;
+              gameBoardSqrs[i].shipAnchored = true;
+              gameBoardSqrs[i - 10].shipAnchored = true;
+              j = 0;
+              shipCounter= 1;
+              return;
+            } else if (shipsData[j].name === `${shipNameSize}${shipCounter}` && shipsData[j].name === `MediumShip${shipCounter}` && gameBoardSqrs[i - 10].north > 0 && gameBoardSqrs[i - 10].shipAnchored === false && gameBoardSqrs[i - 20].north > 0 && gameBoardSqrs[i - 20].shipAnchored === false) {
+              gameBoardSqrs[i].shipAtLocation = shipsData[j].name;
+              gameBoardSqrs[i - 10].shipAtLocation = shipsData[j].name;
+              gameBoardSqrs[i - 20].shipAtLocation = shipsData[j].name;
+              gameBoardSqrs[i].shipAnchored = true;
+              gameBoardSqrs[i - 10].shipAnchored = true;
+              gameBoardSqrs[i - 20].shipAnchored = true;
+              j = 0;
+              shipCounter = 1;
+              return;
+            } else if (shipsData[j].name === `${shipNameSize}${shipCounter}` && shipsData[j].name === `LargeShip${shipCounter}` && gameBoardSqrs[i - 10].north > 0 && gameBoardSqrs[i - 10].shipAnchored === false && gameBoardSqrs[i - 20].north > 0 && gameBoardSqrs[i - 20].shipAnchored === false && gameBoardSqrs[i - 30].north > 0 && gameBoardSqrs[i - 30].shipAnchored === false && gameBoardSqrs[i - 40].north > 0 && gameBoardSqrs[i - 40].shipAnchored === false) {
+              gameBoardSqrs[i].shipAtLocation = shipsData[j].name;
+              gameBoardSqrs[i - 10].shipAtLocation = shipsData[j].name;
+              gameBoardSqrs[i - 20].shipAtLocation = shipsData[j].name;
+              gameBoardSqrs[i - 30].shipAtLocation = shipsData[j].name;
+              gameBoardSqrs[i - 40].shipAtLocation = shipsData[j].name;
+              gameBoardSqrs[i].shipAnchored = true;
+              gameBoardSqrs[i - 10].shipAnchored = true;
+              gameBoardSqrs[i - 20].shipAnchored = true;
+              gameBoardSqrs[i - 30].shipAnchored = true;
+              gameBoardSqrs[i - 40].shipAnchored = true;
+              j = 0;
+              shipCounter = 1;
+              return;
+            }
+          }
+          shipCounter++
+          (shipCounter > 3) ? shipCounter = 1 : null;
+        }
+      } else if (shipsData === null) {
+        return;
+      }
+    }
   };
+
+    // for (let i = 0; i < gameBoardSqrs.length; i++) {
+    //   if (gameBoardSqrs[i].westByNorth === coordinates && gameBoardSqrs[i].shipAnchored === false && shipCounter < 7) {
+    //     gameBoardSqrs[i].shipAtLocation = shipsData[shipCounter].name;
+    //     gameBoardSqrs[i].shipAnchored = true;
+    //     shipCounter++;
+    //   };
+    // };
+
 
   const checkSunkStatus = function() {
     if (shipsData.every(function(ship) {
