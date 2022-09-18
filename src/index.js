@@ -16,7 +16,7 @@ import gameLoop from './mainGameLoop';
 
 // playerGameBoard.generateSquares();
 // console.table(playerGameBoard.gameBoardSqrs)
-gameLoop.aiPlayer.gameBoard.placeShipOnSqr(61, 'north', 'LargeShip')
+gameLoop.aiPlayer.gameBoard.placeShipOnSqr(16, 'west', 'LargeShip')
 // gameLoop.aiPlayer.gameBoard.placeShipOnSqr('13')
 // gameLoop.aiPlayer.gameBoard.placeShipOnSqr('15')
 // gameLoop.aiPlayer.gameBoard.placeShipOnSqr('16')
