@@ -70,12 +70,18 @@ const GameBoard = () => {
   };
 
   const placeShipOnSqr = function (coordinates, directionOfPlacement, shipNameSize) {
-    const northSouthPlacement = function() {}
     for (let i = 0; i < gameBoardSqrs.length; i++) {
       if (gameBoardSqrs[i].westByNorth === coordinates && gameBoardSqrs[i].shipAnchored === false) {
         let shipCounter = 1;
         for (let j = 0; j < shipsData.length; j++) {
           if (directionOfPlacement === "north") {
+
+            // safeguard against invalid placement and to inform user about it
+            if ((coordinates === gameBoardSqrs[i].westByNorth && shipsData[j].name === `SmallShip${shipCounter}` && gameBoardSqrs[i].west === 1) || (coordinates === gameBoardSqrs[i].westByNorth && shipsData[j].name === `MediumShip${shipCounter}` && (gameBoardSqrs[i].west === 1 || gameBoardSqrs[i].west === 2)) || (coordinates === gameBoardSqrs[i].westByNorth && shipsData[j].name === `LargeShip${shipCounter}` && (gameBoardSqrs[i].west === 1 || gameBoardSqrs[i].west === 2 || gameBoardSqrs[i].west === 3 || gameBoardSqrs[i].west === 4))) {
+              console.log('DAMN brah!')
+              return;
+            }
+
             if (shipsData[j].name === `${shipNameSize}${shipCounter}` && shipsData[j].name === `SmallShip${shipCounter}` && gameBoardSqrs[i - 10].north > 0 && gameBoardSqrs[i - 10].shipAnchored === false) {
               gameBoardSqrs[i].shipAtLocation = shipsData[j].name;
               gameBoardSqrs[i - 10].shipAtLocation = shipsData[j].name;
@@ -110,6 +116,13 @@ const GameBoard = () => {
               return;
             }
           } else if (directionOfPlacement === "south") {
+
+            // safeguard against invalid placement and to inform user about it
+            if ((coordinates === gameBoardSqrs[i].westByNorth && shipsData[j].name === `SmallShip${shipCounter}` && gameBoardSqrs[i].west === 10) || (coordinates === gameBoardSqrs[i].westByNorth && shipsData[j].name === `MediumShip${shipCounter}` && (gameBoardSqrs[i].west === 10 || gameBoardSqrs[i].west === 9)) || (coordinates === gameBoardSqrs[i].westByNorth && shipsData[j].name === `LargeShip${shipCounter}` && (gameBoardSqrs[i].west === 10 || gameBoardSqrs[i].west === 9 || gameBoardSqrs[i].west === 8 || gameBoardSqrs[i].west === 7))) {
+              console.log('DAMN brah!')
+              return;
+            }
+
             if (shipsData[j].name === `${shipNameSize}${shipCounter}` && shipsData[j].name === `SmallShip${shipCounter}` && gameBoardSqrs[i + 10].north > 0 && gameBoardSqrs[i + 10].shipAnchored === false) {
               gameBoardSqrs[i].shipAtLocation = shipsData[j].name;
               gameBoardSqrs[i + 10].shipAtLocation = shipsData[j].name;
@@ -144,6 +157,13 @@ const GameBoard = () => {
               return;
             }
           } else if (directionOfPlacement === "east") {
+
+            // safeguard against invalid placement and to inform user about it
+            if ((coordinates === gameBoardSqrs[i].westByNorth && shipsData[j].name === `SmallShip${shipCounter}` && gameBoardSqrs[i].north === 10) || (coordinates === gameBoardSqrs[i].westByNorth && shipsData[j].name === `MediumShip${shipCounter}` && (gameBoardSqrs[i].north === 10 || gameBoardSqrs[i].north === 9)) || (coordinates === gameBoardSqrs[i].westByNorth && shipsData[j].name === `LargeShip${shipCounter}` && (gameBoardSqrs[i].north === 10 || gameBoardSqrs[i].north === 9 || gameBoardSqrs[i].north === 8 || gameBoardSqrs[i].north === 7))) {
+              console.log('DAMN brah!')
+              return;
+            }
+
             if (shipsData[j].name === `${shipNameSize}${shipCounter}` && shipsData[j].name === `SmallShip${shipCounter}` && gameBoardSqrs[i].lastRowSquare !== true && gameBoardSqrs[i + 1].shipAnchored === false) {
               gameBoardSqrs[i].shipAtLocation = shipsData[j].name;
               gameBoardSqrs[i + 1].shipAtLocation = shipsData[j].name;
@@ -178,6 +198,13 @@ const GameBoard = () => {
               return;
             }
           } else if (directionOfPlacement === "west") {
+
+            // safeguard against invalid placement and to inform user about it
+            if ((coordinates === gameBoardSqrs[i].westByNorth && shipsData[j].name === `SmallShip${shipCounter}` && gameBoardSqrs[i].north === 1) || (coordinates === gameBoardSqrs[i].westByNorth && shipsData[j].name === `MediumShip${shipCounter}` && (gameBoardSqrs[i].north === 1 || gameBoardSqrs[i].north === 2)) || (coordinates === gameBoardSqrs[i].westByNorth && shipsData[j].name === `LargeShip${shipCounter}` && (gameBoardSqrs[i].north === 1 || gameBoardSqrs[i].north === 2 || gameBoardSqrs[i].north === 3 || gameBoardSqrs[i].north === 4))) {
+              console.log('DAMN brah!')
+              return;
+            }
+
             if (shipsData[j].name === `${shipNameSize}${shipCounter}` && shipsData[j].name === `SmallShip${shipCounter}` && gameBoardSqrs[i - 1].lastRowSquare !== true && gameBoardSqrs[i - 1].shipAnchored === false) {
               gameBoardSqrs[i].shipAtLocation = shipsData[j].name;
               gameBoardSqrs[i - 1].shipAtLocation = shipsData[j].name;
