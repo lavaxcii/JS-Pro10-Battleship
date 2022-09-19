@@ -17,3 +17,8 @@ const gameLoop = (() => {
 })();
 
 export default gameLoop;
+
+// add rng ai
+// add rng logic for ship placement for ai
+// ai should happen instant after player has set updater
+// but for testing purposes it will be other way around
