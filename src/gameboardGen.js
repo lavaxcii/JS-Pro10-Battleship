@@ -260,15 +260,6 @@ const GameBoard = () => {
     }
   };
 
-    // for (let i = 0; i < gameBoardSqrs.length; i++) {
-    //   if (gameBoardSqrs[i].westByNorth === coordinates && gameBoardSqrs[i].shipAnchored === false && shipCounter < 7) {
-    //     gameBoardSqrs[i].shipAtLocation = shipsData[shipCounter].name;
-    //     gameBoardSqrs[i].shipAnchored = true;
-    //     shipCounter++;
-    //   };
-    // };
-
-
   const checkSunkStatus = function() {
     if (shipsData.every(function(ship) {
         return ship.shipLength === 0

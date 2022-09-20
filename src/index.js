@@ -1,7 +1,7 @@
 import './styleV.css';
 import gameLoop from './mainGameLoop';
 
-// window.shipsData = shipsData
+window.gameLoop = gameLoop.aiPlayer
 
 // gameLoop.message();
 
@@ -16,10 +16,10 @@ import gameLoop from './mainGameLoop';
 
 // playerGameBoard.generateSquares();
 // console.table(playerGameBoard.gameBoardSqrs)
-gameLoop.aiPlayer.gameBoard.placeShipOnSqr(11, 'east', 'SmallShip')
-gameLoop.aiPlayer.gameBoard.placeShipOnSqr(14, 'east', 'SmallShip')
-gameLoop.aiPlayer.gameBoard.placeShipOnSqr(17, 'east', 'SmallShip')
-gameLoop.aiPlayer.gameBoard.placeShipOnSqr(21, 'east', 'SmallShip')
+// gameLoop.aiPlayer.gameBoard.placeShipOnSqr(11, 'east', 'SmallShip')
+// gameLoop.aiPlayer.gameBoard.placeShipOnSqr(14, 'east', 'SmallShip')
+// gameLoop.aiPlayer.gameBoard.placeShipOnSqr(17, 'east', 'SmallShip')
+// gameLoop.aiPlayer.gameBoard.placeShipOnSqr(21, 'east', 'SmallShip')
 
 // gameLoop.aiPlayer.gameBoard.placeShipOnSqr('13')
 // gameLoop.aiPlayer.gameBoard.placeShipOnSqr('15')
@@ -30,12 +30,21 @@ gameLoop.aiPlayer.gameBoard.placeShipOnSqr(21, 'east', 'SmallShip')
 // gameLoop.aiPlayer.gameBoard.placeShipOnSqr('21')
 
 // gameLoop.aiPlayer.gameBoard.recieveAttack(21)
-gameLoop.aiPlayer.toConsole();
-gameLoop.humanPlayer.toConsole();
-// gameLoop.aiPlayer.gameBoard.recieveAttack(11)
+gameLoop.aiPlacementLoop();
 
 console.table(gameLoop.aiPlayer.gameBoard.gameBoardSqrs)
-console.table(gameLoop.aiPlayer.gameBoard.shipsData)
+
+// console.table(gameLoop.humanPlayer)
+// gameLoop.aiPlayer.gameBoard.recieveAttack(11)
+
+// console.table(gameLoop.aiPlayer.gameBoard.gameBoardSqrs)
+// console.table(gameLoop.aiPlayer.gameBoard.shipsData)
+
+// console.log(gameLoop.aiPlayer.determineShipPlacementForAi(gameLoop.aiPlayer.rndNrAi(10, 1)))
+// console.log(gameLoop.aiPlayer.determineShipPlacementForAi(gameLoop.aiPlayer.rndNrAi(10, 1)))
+// console.log(gameLoop.aiPlayer.determineShipPlacementForAi(gameLoop.aiPlayer.rndNrAi(10, 1)))
+
+
 
 
 

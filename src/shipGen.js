@@ -1,12 +1,8 @@
 const Ship = (shipSizeLength, shipNrForName, shipNr) => {
   let name = `${shipNrForName}`;
   let shipLength = shipSizeLength;
-  let shipIndex = shipNr - 1;
+  // let shipIndex = shipNr - 1;
   let shipPlacedOnBoard = false;
-
-  // const getLength = function() {
-  //   return this.shipLength;
-  // };
 
   const hit = function() {
     this.shipLength -= 1;
@@ -20,14 +16,7 @@ const Ship = (shipSizeLength, shipNrForName, shipNr) => {
     };
   };
 
-  return { name, shipLength, shipIndex, shipPlacedOnBoard, isSunk, hit }
+  return { name, shipLength, shipPlacedOnBoard, isSunk, hit }
 }
 
 export default Ship;
-
-
-// ovdje je gameStart btn click gdje se onda putem Ship FFa naprave 
-// objekt brodovi svih veličina i spakuju u shipsData gdje se onda
-// kada player stisne na gameSqr ponudi mu se koji brod može postaviti
-// i onda mu ponudi u kojem smjeru ga uopće (ne)može postaviti s obzirom na dužinu
-// i na prisustvo drugih brodova
