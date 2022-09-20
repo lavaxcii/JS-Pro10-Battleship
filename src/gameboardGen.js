@@ -1,6 +1,7 @@
 import Ship from './shipGen';
+import gameLoop from './mainGameLoop';
 
-const GameBoard = () => {
+const GameBoard = (name) => {
   let shipsData = [];
   let gameBoardSqrs = [];
 
@@ -55,16 +56,20 @@ const GameBoard = () => {
 
   const recieveAttack = function(coordinates) {
     for (let i = 0; i < gameBoardSqrs.length; i++) {
-      if (gameBoardSqrs[i].westByNorth === coordinates && gameBoardSqrs[i].shipAnchored === true) {
+      if (gameBoardSqrs[i].westByNorth === coordinates && gameBoardSqrs[i].shipAnchored === true && gameBoardSqrs[i].locationHit === false) {
         gameBoardSqrs[i].locationHit = true;
         for (let j = 0; j < shipsData.length; j++) { 
           if (shipsData[j].name === gameBoardSqrs[i].shipAtLocation) {
             shipsData[j].hit();
             shipsData[j].isSunk();
+            console.log(`SHOTS FIRED ON US! HIT AT ${gameBoardSqrs[i].westByNorth} ${name}!`);
+            (name === 'HAL3000') ? gameLoop.turnLogic() : null;
           };
         };
       } else if (gameBoardSqrs[i].westByNorth === coordinates && gameBoardSqrs[i].locationHit === false) {
         gameBoardSqrs[i].locationHit = true;
+        console.log(`SHOTS FIRED ON US! AMISS AT ${gameBoardSqrs[i].westByNorth} ${name}!`);
+        (name === 'HAL3000') ? gameLoop.turnLogic() : null;
       };
     };
   };

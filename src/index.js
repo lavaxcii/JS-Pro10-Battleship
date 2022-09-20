@@ -1,7 +1,9 @@
 import './styleV.css';
 import gameLoop from './mainGameLoop';
 
-window.gameLoop = gameLoop.aiPlayer
+window.aiGameBoardSqrs = gameLoop.aiPlayer.gameBoard.gameBoardSqrs
+window.playerGameBoardSqrs = gameLoop.humanPlayer.gameBoard.gameBoardSqrs
+window.gameLoop = gameLoop
 
 // gameLoop.message();
 
@@ -31,8 +33,12 @@ window.gameLoop = gameLoop.aiPlayer
 
 // gameLoop.aiPlayer.gameBoard.recieveAttack(21)
 gameLoop.aiPlacementLoop();
+gameLoop.playerPlacementLoop();
 
 console.table(gameLoop.aiPlayer.gameBoard.gameBoardSqrs)
+console.table(gameLoop.humanPlayer.gameBoard.gameBoardSqrs)
+
+gameLoop.aiPlayer.gameBoard.recieveAttack(26)
 
 // console.table(gameLoop.humanPlayer)
 // gameLoop.aiPlayer.gameBoard.recieveAttack(11)

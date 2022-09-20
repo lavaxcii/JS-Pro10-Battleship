@@ -1,7 +1,8 @@
 import GameBoard from './gameboardGen'
 
-const Player = () => {
+const Player = (name) => {
   let score = 0;
+  let playerName = name;
 
   const rndNrAi = function (upperLimit, inclusiveOrNot) {
     return Math.floor(Math.random() * upperLimit) + inclusiveOrNot;
@@ -19,11 +20,11 @@ const Player = () => {
     return shipNameArray[rndNrAi(3, 0)]
   };
 
-  const gameBoard = GameBoard();
+  const gameBoard = GameBoard(`${name}`);
   gameBoard.generateShips();
   gameBoard.generateSquares();
 
-  return { score, westByNorthAi, directionOfPlacementAi, shipNameAi, gameBoard }
+  return { score, westByNorthAi, directionOfPlacementAi, shipNameAi, gameBoard, playerName }
 }
 
 export default Player;
