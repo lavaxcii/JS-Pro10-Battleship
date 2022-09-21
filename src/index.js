@@ -1,8 +1,8 @@
 import './styleV.css';
 import gameLoop from './mainGameLoop';
 
-window.aiGameBoardSqrs = gameLoop.aiPlayer.gameBoard.gameBoardSqrs
-window.playerGameBoardSqrs = gameLoop.humanPlayer.gameBoard.gameBoardSqrs
+// window.aiGameBoardSqrs = gameLoop.aiPlayer.gameBoard.gameBoardSqrs
+// window.playerGameBoardSqrs = gameLoop.humanPlayer.gameBoard.gameBoardSqrs
 window.gameLoop = gameLoop
 
 // gameLoop.message();

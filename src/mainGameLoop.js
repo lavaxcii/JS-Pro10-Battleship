@@ -1,6 +1,12 @@
 import Player from "./playerGen"
 
 const gameLoop = (() => {
+
+  // here should be conditional which upon new game or restart game declares again
+  // these same variables with same assigment
+  // and second case should be continuance of game with adding scores to players and
+  // reseting game boards for new game
+
   const humanPlayer = Player('HUMAN');
   const aiPlayer = Player('HAL3000');
 
@@ -31,6 +37,6 @@ const gameLoop = (() => {
 
 export default gameLoop;
 
-// add to turn logic check if all enemy/ally ships are sunk
 // add endgame where score is added to winner and game contiuned with same players
+// endgame should be triggered from checkShipSunkStatus from player gameboard
 // add possibility to restart game

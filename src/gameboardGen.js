@@ -33,6 +33,7 @@ const GameBoard = (name) => {
       };
     };
   };
+  generateSquares()
 
   const generateShips = function() {
     let shipNr = 0;
@@ -53,6 +54,7 @@ const GameBoard = (name) => {
       shipsData.push(Ship(5, `LargeShip${shipNr.toString()}`, shipNr));
     };
   };
+  generateShips()
 
   const recieveAttack = function(coordinates) {
     for (let i = 0; i < gameBoardSqrs.length; i++) {
@@ -63,12 +65,16 @@ const GameBoard = (name) => {
             shipsData[j].hit();
             shipsData[j].isSunk();
             console.log(`SHOTS FIRED ON US! HIT AT ${gameBoardSqrs[i].westByNorth} ${name}!`);
+            (name === 'HAL3000') ? gameLoop.aiPlayer.gameBoard.checkSunkStatus() : null;
+            (name === 'HUMAN') ? gameLoop.humanPlayer.gameBoard.checkSunkStatus() : null;
             (name === 'HAL3000') ? gameLoop.turnLogic() : null;
           };
         };
       } else if (gameBoardSqrs[i].westByNorth === coordinates && gameBoardSqrs[i].locationHit === false) {
         gameBoardSqrs[i].locationHit = true;
         console.log(`SHOTS FIRED ON US! AMISS AT ${gameBoardSqrs[i].westByNorth} ${name}!`);
+        (name === 'HAL3000') ? gameLoop.aiPlayer.gameBoard.checkSunkStatus() : null;
+        (name === 'HUMAN') ? gameLoop.humanPlayer.gameBoard.checkSunkStatus() : null;
         (name === 'HAL3000') ? gameLoop.turnLogic() : null;
       };
     };

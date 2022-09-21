@@ -1,8 +1,13 @@
 import GameBoard from './gameboardGen'
+import gameLoop from './mainGameLoop';
 
 const Player = (name) => {
   let score = 0;
   let playerName = name;
+  
+  const updateScore = function() {
+    return this.score++
+  }
 
   const rndNrAi = function (upperLimit, inclusiveOrNot) {
     return Math.floor(Math.random() * upperLimit) + inclusiveOrNot;
@@ -20,11 +25,13 @@ const Player = (name) => {
     return shipNameArray[rndNrAi(3, 0)]
   };
 
-  const gameBoard = GameBoard(`${name}`);
-  gameBoard.generateShips();
-  gameBoard.generateSquares();
+  let gameBoard = GameBoard(`${name}`);
+  const generateNewGameBoard = function() {
+    this.gameBoard = GameBoard(`${name}`);
+    gameLoop.aiPlacementLoop();
+  }
 
-  return { score, westByNorthAi, directionOfPlacementAi, shipNameAi, gameBoard, playerName }
+  return { playerName, score, updateScore, westByNorthAi, directionOfPlacementAi, shipNameAi, gameBoard, generateNewGameBoard }
 }
 
 export default Player;
