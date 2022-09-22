@@ -1,4 +1,5 @@
 import Player from "./playerGen"
+import uiElements from './uiElements';
 
 const gameLoop = (() => {
 
@@ -30,9 +31,49 @@ const gameLoop = (() => {
     console.log('HUMAN GONNA GITH IT! YAH MAN!')
     humanPlayer.gameBoard.recieveAttack(humanPlayer.westByNorthAi());
   }
+
+  const generateGameElements = function () {
+    document.querySelector('.startBtn').addEventListener('click', () => {
+      document.querySelector('.mainMenuContainer').remove();
+
+      uiElements.createElement('div', 'scoreDiv', null, '.content', 1);
+      uiElements.createElement('p', 'playerScore', null, '.scoreDiv', 1);
+      uiElements.textContentForElement('.playerScore', '0');
+      uiElements.createElement('p', 'aiScore', null, '.scoreDiv', 1);
+      uiElements.textContentForElement('.aiScore', '0');
+
+      uiElements.createElement('button', 'restartRoundBtn', null, '.scoreDiv', 1);
+      uiElements.textContentForElement('.restartRoundBtn', 'RESTART ROUND');
+      uiElements.createElement('button', 'quitGameBtn', null, '.scoreDiv', 1);
+      uiElements.textContentForElement('.quitGameBtn', 'QUIT GAME');
+
+      uiElements.createElement('div', 'gridDiv', null, '.content', 1);
+      uiElements.createElement('div', 'playerGrid', null, '.gridDiv', 1);
+      uiElements.createElement('div', 'square', 'humanPlayer', '.playerGrid', 100);
+      for (let i = 1; i <= 100; i++) {
+        uiElements.textContentForElement(`.square${i}`, `${humanPlayer.gameBoard.gameBoardSqrs[i - 1].westByNorth}`);
+      };
+      uiElements.createElement('div', 'aiGrid', null, '.gridDiv', 1);
+      uiElements.createElement('div', 'aiSquare', 'aiPlayer', '.aiGrid', 100);
+      for (let i = 1; i <= 100; i++) {
+        uiElements.textContentForElement(`.aiSquare${i}`, `${aiPlayer.gameBoard.gameBoardSqrs[i - 1].westByNorth}`);
+      };
+
+      document.querySelector('.quitGameBtn').addEventListener('click', () => {
+        document.querySelector('.scoreDiv').remove();
+        document.querySelector('.gridDiv').remove();
+        uiElements.createElement('div', 'mainMenuContainer', '.content', 1);
+        uiElements.createElement('button', 'startBtn', '.mainMenuContainer', 1);
+        uiElements.textContentForElement('.startBtn', 'START GAME');
+        gameLoop.generateGameElements();
+      });
+
+      //restart button
+    });
+  };
   
 
-  return { humanPlayer, aiPlayer, aiPlacementLoop, playerPlacementLoop, turnLogic }
+  return { humanPlayer, aiPlayer, aiPlacementLoop, playerPlacementLoop, turnLogic, generateGameElements }
 })();
 
 export default gameLoop;

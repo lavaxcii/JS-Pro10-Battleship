@@ -1,9 +1,14 @@
 import './styleV.css';
 import gameLoop from './mainGameLoop';
+import uiElements from './uiElements';
 
 // window.aiGameBoardSqrs = gameLoop.aiPlayer.gameBoard.gameBoardSqrs
 // window.playerGameBoardSqrs = gameLoop.humanPlayer.gameBoard.gameBoardSqrs
 window.gameLoop = gameLoop
+uiElements.createElement('div', 'mainMenuContainer', null, '.content', 1);
+uiElements.createElement('button', 'startBtn', null, '.mainMenuContainer', 1);
+uiElements.textContentForElement('.startBtn', 'START GAME');
+gameLoop.generateGameElements();
 
 // gameLoop.message();
 
@@ -32,13 +37,13 @@ window.gameLoop = gameLoop
 // gameLoop.aiPlayer.gameBoard.placeShipOnSqr('21')
 
 // gameLoop.aiPlayer.gameBoard.recieveAttack(21)
-gameLoop.aiPlacementLoop();
-gameLoop.playerPlacementLoop();
+// gameLoop.aiPlacementLoop();
+// gameLoop.playerPlacementLoop();
 
-console.table(gameLoop.aiPlayer.gameBoard.gameBoardSqrs)
-console.table(gameLoop.humanPlayer.gameBoard.gameBoardSqrs)
+// console.table(gameLoop.aiPlayer.gameBoard.gameBoardSqrs)
+// console.table(gameLoop.humanPlayer.gameBoard.gameBoardSqrs)
 
-gameLoop.aiPlayer.gameBoard.recieveAttack(26)
+// gameLoop.aiPlayer.gameBoard.recieveAttack(26)
 
 // console.table(gameLoop.humanPlayer)
 // gameLoop.aiPlayer.gameBoard.recieveAttack(11)
@@ -49,6 +54,8 @@ gameLoop.aiPlayer.gameBoard.recieveAttack(26)
 // console.log(gameLoop.aiPlayer.determineShipPlacementForAi(gameLoop.aiPlayer.rndNrAi(10, 1)))
 // console.log(gameLoop.aiPlayer.determineShipPlacementForAi(gameLoop.aiPlayer.rndNrAi(10, 1)))
 // console.log(gameLoop.aiPlayer.determineShipPlacementForAi(gameLoop.aiPlayer.rndNrAi(10, 1)))
+
+
 
 
 
