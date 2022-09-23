@@ -33,9 +33,17 @@ const gameLoop = (() => {
 
   const turnLogic = function() {
     console.log('HUMAN GONNA GITH IT! YAH MAN!')
-    humanPlayer.gameBoard.recieveAttack(humanPlayer.westByNorthAi());
+    let coordinate;
+    do {
+      coordinate = humanPlayer.westByNorthAi();
+    } while (document.querySelector(`.humanSquare${coordinate - 10}`) === null);
+    let playerHitSquare = document.querySelector(`.humanSquare${coordinate - 10}`);
+    console.log('HAL is choosen radnom number: ' + coordinate)
+    console.log('HAL is targeting: ' + playerHitSquare)
+    humanPlayer.gameBoard.recieveAttack(coordinate, playerHitSquare);
   }
   let clickedValue;
+  let clickedSquare;
   const generateGameElements = function () {
     document.querySelector('.startBtn').addEventListener('click', () => {
       document.querySelector('.mainMenuContainer').remove();
@@ -58,14 +66,20 @@ const gameLoop = (() => {
       uiElements.createElement('div', 'humanSquare', 'humanPlayer', '.playerGrid', 100);
       for (let i = 1; i <= 100; i++) {
         document.querySelector(`.humanSquare${i}`).addEventListener('click', (clicked) => {
-          clickedValue = parseInt(clicked.srcElement.innerText)
-          document.querySelector('.inputForm').setAttribute('style', 'display: visible')
+          clickedValue = parseInt(clicked.srcElement.innerText);
+          clickedSquare = clicked.originalTarget.classList[1];
+          document.querySelector(`.${clickedSquare}`).setAttribute('style', 'border: solid 2px red');
+          document.querySelector('.inputForm').setAttribute('style', 'display: visible');
         });
         uiElements.textContentForElement(`.humanSquare${i}`, `${humanPlayer.gameBoard.gameBoardSqrs[i - 1].westByNorth}`);
       };
       uiElements.createElement('div', 'aiGrid', null, '.gridDiv', 1);
       uiElements.createElement('div', 'aiSquare', 'aiPlayer', '.aiGrid', 100);
       for (let i = 1; i <= 100; i++) {
+        document.querySelector(`.aiSquare${i}`).addEventListener('click', (clicked) => {
+          const aiHitSquare = document.querySelector(`.${clicked.originalTarget.classList[1]}`)
+          aiPlayer.gameBoard.recieveAttack(parseInt(clicked.srcElement.innerText), aiHitSquare)
+        });
         uiElements.textContentForElement(`.aiSquare${i}`, `${aiPlayer.gameBoard.gameBoardSqrs[i - 1].westByNorth}`);
       };
 
@@ -99,15 +113,21 @@ const gameLoop = (() => {
       uiElements.createElement('input', 'inputLS', null, '.inputForm', 1)
       uiElements.setAttribute('.inputLS', 'type', 'radio', 'value', 'LargeShip', 'name', 'choiceThree', null, null)
 
+      // add safeguard when all players ships are places manually or with random button ++
+      // add highligh when square for manual placement is clicked
+
+
       uiElements.createElement('button', 'confirmInputBtn', null, '.inputForm', 1);
       uiElements.setAttribute('.confirmInputBtn', 'type',  'button', null, null, null, null, null, null)
       uiElements.textContentForElement('.confirmInputBtn', 'Confirm');
       document.querySelector('.confirmInputBtn').addEventListener('click', () => {
         const direction = document.querySelector('input[name="choiceTwo"]:checked');
-        const shipSize = document.querySelector('input[name="choiceThree"]:checked');
-        gameLoop.humanPlayer.gameBoard.placeShipOnSqr(clickedValue,  direction.value, shipSize.value);
+        const shipSize = document.querySelector('input[name="choiceThree"]:checked')
         document.querySelector('.inputForm').setAttribute('style', 'display: none')
-        clickedValue = ''
+        document.querySelector(`.${clickedSquare}`).setAttribute('style', 'border: solid 2px rgb(114, 123, 20)');
+        humanPlayer.gameBoard.placeShipOnSqr(clickedValue,  direction.value, shipSize.value);
+        clickedValue = null;
+        clickedSquare = null;
       });
 
       document.querySelector('.quitGameBtn').addEventListener('click', () => {
@@ -128,9 +148,11 @@ const gameLoop = (() => {
       document.querySelector('.newRoundBtn').addEventListener('click', () => {
         for (let i = 1; i <= 100; i++) {
           uiElements.textContentForElement(`.humanSquare${i}`, `${humanPlayer.gameBoard.gameBoardSqrs[i - 1].westByNorth}`);
+          uiElements.setAttribute(`.humanSquare${i}`, 'style', 'color: white')
         };
         for (let i = 1; i <= 100; i++) {
           uiElements.textContentForElement(`.aiSquare${i}`, `${aiPlayer.gameBoard.gameBoardSqrs[i - 1].westByNorth}`);
+          uiElements.setAttribute(`.aiSquare${i}`, 'style', 'color: white')
         };
         humanPlayer.generateNewGameBoard('HUMAN')
         aiPlayer.generateNewGameBoard('HAL3000')
