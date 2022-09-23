@@ -57,7 +57,7 @@ const GameBoard = (name) => {
   };
   generateShips()
 
-  const recieveAttack = function(coordinates) {
+  const recieveAttack = function(coordinates, targetLocation) {
     for (let i = 0; i < gameBoardSqrs.length; i++) {
       if (gameBoardSqrs[i].westByNorth === coordinates && gameBoardSqrs[i].shipAnchored === true && gameBoardSqrs[i].locationHit === false) {
         gameBoardSqrs[i].locationHit = true;
@@ -68,6 +68,10 @@ const GameBoard = (name) => {
             console.log(`SHOTS FIRED ON US! HIT AT ${gameBoardSqrs[i].westByNorth} ${name}!`);
             (name === 'HAL3000') ? gameLoop.aiPlayer.gameBoard.checkSunkStatus() : null;
             (name === 'HUMAN') ? gameLoop.humanPlayer.gameBoard.checkSunkStatus() : null;
+            (name === 'HAL3000') ? targetLocation.setAttribute('style', 'border: solid 2px red; color: red') : null;
+            (name === 'HAL3000') ? targetLocation.textContent = 'X' : null;
+            (name === 'HUMAN') ? targetLocation.setAttribute('style', 'border: solid 2px red; color: red') : null;
+            (name === 'HUMAN') ? targetLocation.textContent = 'X' : null;
             (name === 'HAL3000') ? gameLoop.turnLogic() : null;
           };
         };
@@ -76,6 +80,8 @@ const GameBoard = (name) => {
         console.log(`SHOTS FIRED ON US! AMISS AT ${gameBoardSqrs[i].westByNorth} ${name}!`);
         (name === 'HAL3000') ? gameLoop.aiPlayer.gameBoard.checkSunkStatus() : null;
         (name === 'HUMAN') ? gameLoop.humanPlayer.gameBoard.checkSunkStatus() : null;
+        (name === 'HAL3000') ? targetLocation.setAttribute('style', 'border: solid 2px red') : null;
+        (name === 'HUMAN') ? targetLocation.setAttribute('style', 'border: solid 2px red') : null;
         (name === 'HAL3000') ? gameLoop.turnLogic() : null;
       };
     };
@@ -99,6 +105,8 @@ const GameBoard = (name) => {
               if (name === 'HUMAN') {
                 uiElements.textContentForElement(`.humanSquare${i + 1}`, `SS${shipCounter}`);
                 uiElements.textContentForElement(`.humanSquare${i - 9}`, `SS${shipCounter}`);
+                uiElements.setAttribute(`.humanSquare${i + 1}`, 'style', 'color: violet');
+                uiElements.setAttribute(`.humanSquare${i - 9}`, 'style', 'color: violet');
               };
 
               shipsData[j].shipPlacedOnBoard = true;
@@ -115,6 +123,9 @@ const GameBoard = (name) => {
                 uiElements.textContentForElement(`.humanSquare${i + 1}`, `MS${shipCounter}`);
                 uiElements.textContentForElement(`.humanSquare${i - 9}`, `MS${shipCounter}`);
                 uiElements.textContentForElement(`.humanSquare${i - 19}`, `MS${shipCounter}`);
+                uiElements.setAttribute(`.humanSquare${i + 1}`, 'style', 'color: violet');
+                uiElements.setAttribute(`.humanSquare${i - 9}`, 'style', 'color: violet');
+                uiElements.setAttribute(`.humanSquare${i - 19}`, 'style', 'color: violet');
               };
 
               shipsData[j].shipPlacedOnBoard = true;
@@ -135,6 +146,11 @@ const GameBoard = (name) => {
                 uiElements.textContentForElement(`.humanSquare${i - 19}`, `LS${shipCounter}`);
                 uiElements.textContentForElement(`.humanSquare${i - 29}`, `LS${shipCounter}`);
                 uiElements.textContentForElement(`.humanSquare${i - 39}`, `LS${shipCounter}`);
+                uiElements.setAttribute(`.humanSquare${i + 1}`, 'style', 'color: violet');
+                uiElements.setAttribute(`.humanSquare${i - 9}`, 'style', 'color: violet');
+                uiElements.setAttribute(`.humanSquare${i - 19}`, 'style', 'color: violet');
+                uiElements.setAttribute(`.humanSquare${i - 29}`, 'style', 'color: violet');
+                uiElements.setAttribute(`.humanSquare${i - 39}`, 'style', 'color: violet');
               };
 
               shipsData[j].shipPlacedOnBoard = true;
@@ -165,6 +181,8 @@ const GameBoard = (name) => {
               if (name === 'HUMAN') {
                 uiElements.textContentForElement(`.humanSquare${i + 1}`, `SS${shipCounter}`);
                 uiElements.textContentForElement(`.humanSquare${i + 11}`, `SS${shipCounter}`);
+                uiElements.setAttribute(`.humanSquare${i + 1}`, 'style', 'color: violet');
+                uiElements.setAttribute(`.humanSquare${i + 11}`, 'style', 'color: violet');
               };
 
               shipsData[j].shipPlacedOnBoard = true;
@@ -181,6 +199,9 @@ const GameBoard = (name) => {
                 uiElements.textContentForElement(`.humanSquare${i + 1}`, `MS${shipCounter}`);
                 uiElements.textContentForElement(`.humanSquare${i + 11}`, `MS${shipCounter}`);
                 uiElements.textContentForElement(`.humanSquare${i + 21}`, `MS${shipCounter}`);
+                uiElements.setAttribute(`.humanSquare${i + 1}`, 'style', 'color: violet');
+                uiElements.setAttribute(`.humanSquare${i + 11}`, 'style', 'color: violet');
+                uiElements.setAttribute(`.humanSquare${i + 21}`, 'style', 'color: violet');
               };
 
               shipsData[j].shipPlacedOnBoard = true;
@@ -201,6 +222,11 @@ const GameBoard = (name) => {
                 uiElements.textContentForElement(`.humanSquare${i + 21}`, `LS${shipCounter}`);
                 uiElements.textContentForElement(`.humanSquare${i + 31}`, `LS${shipCounter}`);
                 uiElements.textContentForElement(`.humanSquare${i + 41}`, `LS${shipCounter}`);
+                uiElements.setAttribute(`.humanSquare${i + 1}`, 'style', 'color: violet');
+                uiElements.setAttribute(`.humanSquare${i + 11}`, 'style', 'color: violet');
+                uiElements.setAttribute(`.humanSquare${i + 21}`, 'style', 'color: violet');
+                uiElements.setAttribute(`.humanSquare${i + 31}`, 'style', 'color: violet');
+                uiElements.setAttribute(`.humanSquare${i + 41}`, 'style', 'color: violet');
               };
 
               shipsData[j].shipPlacedOnBoard = true;
@@ -230,7 +256,9 @@ const GameBoard = (name) => {
               //UI changes
               if (name === 'HUMAN') {
                 uiElements.textContentForElement(`.humanSquare${i + 1}`, `SS${shipCounter}`);
-                uiElements.textContentForElement(`.humanSquare${i + 2}`, `SS${shipCounter}`)
+                uiElements.textContentForElement(`.humanSquare${i + 2}`, `SS${shipCounter}`);
+                uiElements.setAttribute(`.humanSquare${i + 1}`, 'style', 'color: violet');
+                uiElements.setAttribute(`.humanSquare${i + 2}`, 'style', 'color: violet');
               };
 
               shipsData[j].shipPlacedOnBoard = true;
@@ -247,6 +275,9 @@ const GameBoard = (name) => {
                 uiElements.textContentForElement(`.humanSquare${i + 1}`, `MS${shipCounter}`);
                 uiElements.textContentForElement(`.humanSquare${i + 2}`, `MS${shipCounter}`);
                 uiElements.textContentForElement(`.humanSquare${i + 3}`, `MS${shipCounter}`);
+                uiElements.setAttribute(`.humanSquare${i + 1}`, 'style', 'color: violet');
+                uiElements.setAttribute(`.humanSquare${i + 2}`, 'style', 'color: violet');
+                uiElements.setAttribute(`.humanSquare${i + 3}`, 'style', 'color: violet');
               };
 
               shipsData[j].shipPlacedOnBoard = true;
@@ -266,6 +297,11 @@ const GameBoard = (name) => {
                 uiElements.textContentForElement(`.humanSquare${i + 3}`, `LS${shipCounter}`);
                 uiElements.textContentForElement(`.humanSquare${i + 4}`, `LS${shipCounter}`);
                 uiElements.textContentForElement(`.humanSquare${i + 5}`, `LS${shipCounter}`);
+                uiElements.setAttribute(`.humanSquare${i + 1}`, 'style', 'color: violet');
+                uiElements.setAttribute(`.humanSquare${i + 2}`, 'style', 'color: violet');
+                uiElements.setAttribute(`.humanSquare${i + 3}`, 'style', 'color: violet');
+                uiElements.setAttribute(`.humanSquare${i + 4}`, 'style', 'color: violet');
+                uiElements.setAttribute(`.humanSquare${i + 5}`, 'style', 'color: violet');
               };
 
               shipsData[j].shipPlacedOnBoard = true;
@@ -295,6 +331,8 @@ const GameBoard = (name) => {
               if (name === 'HUMAN') {
                 uiElements.textContentForElement(`.humanSquare${i + 1}`, `SS${shipCounter}`);
                 uiElements.textContentForElement(`.humanSquare${i}`, `SS${shipCounter}`);
+                uiElements.setAttribute(`.humanSquare${i + 1}`, 'style', 'color: violet');
+                uiElements.setAttribute(`.humanSquare${i}`, 'style', 'color: violet');
               };
 
               shipsData[j].shipPlacedOnBoard = true;
@@ -310,6 +348,9 @@ const GameBoard = (name) => {
                 uiElements.textContentForElement(`.humanSquare${i + 1}`, `MS${shipCounter}`);
                 uiElements.textContentForElement(`.humanSquare${i}`, `MS${shipCounter}`);
                 uiElements.textContentForElement(`.humanSquare${i - 1}`, `MS${shipCounter}`);
+                uiElements.setAttribute(`.humanSquare${i + 1}`, 'style', 'color: violet');
+                uiElements.setAttribute(`.humanSquare${i}`, 'style', 'color: violet');
+                uiElements.setAttribute(`.humanSquare${i - 1}`, 'style', 'color: violet');
               };
 
               shipsData[j].shipPlacedOnBoard = true;
@@ -329,6 +370,11 @@ const GameBoard = (name) => {
                 uiElements.textContentForElement(`.humanSquare${i - 1}`, `LS${shipCounter}`);
                 uiElements.textContentForElement(`.humanSquare${i - 2}`, `LS${shipCounter}`);
                 uiElements.textContentForElement(`.humanSquare${i - 3}`, `LS${shipCounter}`);
+                uiElements.setAttribute(`.humanSquare${i + 1}`, 'style', 'color: violet');
+                uiElements.setAttribute(`.humanSquare${i}`, 'style', 'color: violet');
+                uiElements.setAttribute(`.humanSquare${i - 1}`, 'style', 'color: violet');
+                uiElements.setAttribute(`.humanSquare${i - 2}`, 'style', 'color: violet');
+                uiElements.setAttribute(`.humanSquare${i - 3}`, 'style', 'color: violet');
               };
 
               shipsData[j].shipPlacedOnBoard = true;
