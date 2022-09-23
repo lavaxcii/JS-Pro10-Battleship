@@ -19,19 +19,16 @@ const uiElements = (() => {
   const textContentForElement = function (querySelector, text) {
     const qSelector = document.querySelector(querySelector)
     qSelector.textContent = text;
-  }
+  };
 
-  const createGrid = function () {
-    for (let i = 1; i <= 99; i++) {
-      const createDiv = document.createElement('div');
-      createDiv.classList.add(`sqr${i}`);
-      divs.appendChild(createDiv);
-      console.log('Sqr UI created!')
-      addSqrs(`sqr${i}`);
-    };
-  }
+  const setAttribute = function(selector, setAttribute1, att1Value, setAttribute2, att2Value, setAttribute3, att3Value ) {
+    const qSelector = document.querySelector(selector);
+    qSelector.setAttribute(setAttribute1, att1Value);
+    (setAttribute2 !== null) ? qSelector.setAttribute(setAttribute2, att2Value) : null;
+    (setAttribute3 !== null) ? qSelector.setAttribute(setAttribute3, att3Value) : null;
+  };
 
-  return { createElement, textContentForElement }
+  return { createElement, textContentForElement, setAttribute }
 })();
 
 

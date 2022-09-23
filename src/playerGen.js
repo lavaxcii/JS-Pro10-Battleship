@@ -28,7 +28,7 @@ const Player = (name) => {
   let gameBoard = GameBoard(`${name}`);
   const generateNewGameBoard = function() {
     this.gameBoard = GameBoard(`${name}`);
-    gameLoop.aiPlacementLoop();
+    // gameLoop.aiPlacementLoop();
   }
 
   return { playerName, score, updateScore, westByNorthAi, directionOfPlacementAi, shipNameAi, gameBoard, generateNewGameBoard }

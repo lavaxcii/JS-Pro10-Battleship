@@ -8,8 +8,8 @@ const gameLoop = (() => {
   // and second case should be continuance of game with adding scores to players and
   // reseting game boards for new game
 
-  const humanPlayer = Player('HUMAN');
-  const aiPlayer = Player('HAL3000');
+  let humanPlayer = Player('HUMAN');
+  let aiPlayer = Player('HAL3000');
 
   const aiPlacementLoop = function() {
     do {
@@ -20,18 +20,22 @@ const gameLoop = (() => {
   };
 
   const playerPlacementLoop = function() {
-    do {
-      humanPlayer.gameBoard.placeShipOnSqr(humanPlayer.westByNorthAi(), humanPlayer.directionOfPlacementAi(), humanPlayer.shipNameAi());
-    } while (humanPlayer.gameBoard.shipsData.some(function(ship) {
+    if (humanPlayer.gameBoard.shipsData.some(function(ship) {
       return ship.shipPlacedOnBoard === false
-    }))
+    })) {
+      do {
+        humanPlayer.gameBoard.placeShipOnSqr(humanPlayer.westByNorthAi(), humanPlayer.directionOfPlacementAi(), humanPlayer.shipNameAi());
+      } while (humanPlayer.gameBoard.shipsData.some(function(ship) {
+        return ship.shipPlacedOnBoard === false
+      }));
+    };
   };
 
   const turnLogic = function() {
     console.log('HUMAN GONNA GITH IT! YAH MAN!')
     humanPlayer.gameBoard.recieveAttack(humanPlayer.westByNorthAi());
   }
-
+  let clickedValue;
   const generateGameElements = function () {
     document.querySelector('.startBtn').addEventListener('click', () => {
       document.querySelector('.mainMenuContainer').remove();
@@ -42,16 +46,22 @@ const gameLoop = (() => {
       uiElements.createElement('p', 'aiScore', null, '.scoreDiv', 1);
       uiElements.textContentForElement('.aiScore', '0');
 
-      uiElements.createElement('button', 'restartRoundBtn', null, '.scoreDiv', 1);
-      uiElements.textContentForElement('.restartRoundBtn', 'RESTART ROUND');
+      uiElements.createElement('button', 'rndShipPlacementBtn', null, '.scoreDiv', 1);
+      uiElements.textContentForElement('.rndShipPlacementBtn', 'RND SHIP PLACEMENT');
+      uiElements.createElement('button', 'newRoundBtn', null, '.scoreDiv', 1);
+      uiElements.textContentForElement('.newRoundBtn', 'NEW ROUND');
       uiElements.createElement('button', 'quitGameBtn', null, '.scoreDiv', 1);
       uiElements.textContentForElement('.quitGameBtn', 'QUIT GAME');
 
       uiElements.createElement('div', 'gridDiv', null, '.content', 1);
       uiElements.createElement('div', 'playerGrid', null, '.gridDiv', 1);
-      uiElements.createElement('div', 'square', 'humanPlayer', '.playerGrid', 100);
+      uiElements.createElement('div', 'humanSquare', 'humanPlayer', '.playerGrid', 100);
       for (let i = 1; i <= 100; i++) {
-        uiElements.textContentForElement(`.square${i}`, `${humanPlayer.gameBoard.gameBoardSqrs[i - 1].westByNorth}`);
+        document.querySelector(`.humanSquare${i}`).addEventListener('click', (clicked) => {
+          clickedValue = parseInt(clicked.srcElement.innerText)
+          document.querySelector('.inputForm').setAttribute('style', 'display: visible')
+        });
+        uiElements.textContentForElement(`.humanSquare${i}`, `${humanPlayer.gameBoard.gameBoardSqrs[i - 1].westByNorth}`);
       };
       uiElements.createElement('div', 'aiGrid', null, '.gridDiv', 1);
       uiElements.createElement('div', 'aiSquare', 'aiPlayer', '.aiGrid', 100);
@@ -59,16 +69,75 @@ const gameLoop = (() => {
         uiElements.textContentForElement(`.aiSquare${i}`, `${aiPlayer.gameBoard.gameBoardSqrs[i - 1].westByNorth}`);
       };
 
+      // here be form for ship placement, but maybe put in the middle of player grid
+      // albeit invisible and only when square is clicked is made visible
+      // and when player confirms input it goes out invisible againe
+      // should add no possibility to attack ai until all ships are placed on player booard
+      // see how to disable events on elements, you already did that in some earlier projects
+      uiElements.createElement('form', 'inputForm', null, '.playerGrid', 1)
+      uiElements.setAttribute('.inputForm', 'style', 'display: none', 'action', '', null, null)
+
+      // uzmi od clicked value za kooridinatu i to ćeš prosljediti u placeShipOnSqr
+
+      uiElements.createElement('label', 'choiceTwo', null, '.inputForm', 1)
+      uiElements.textContentForElement('.choiceTwo', 'Direction (N, S, W, E):');
+      uiElements.createElement('input', 'inputNorth', null, '.inputForm', 1)
+      uiElements.setAttribute('.inputNorth', 'type', 'radio', 'value', 'north', 'name', 'choiceTwo', null, null)
+      uiElements.createElement('input', 'inputSouth', null, '.inputForm', 1)
+      uiElements.setAttribute('.inputSouth', 'type', 'radio', 'value', 'south', 'name', 'choiceTwo', null, null)
+      uiElements.createElement('input', 'inputWest', null, '.inputForm', 1)
+      uiElements.setAttribute('.inputWest', 'type', 'radio', 'value', 'west', 'name', 'choiceTwo', null, null)
+      uiElements.createElement('input', 'inputEast', null, '.inputForm', 1)
+      uiElements.setAttribute('.inputEast', 'type', 'radio', 'value', 'east', 'name', 'choiceTwo', null, null)
+
+      uiElements.createElement('label', 'choiceThree', null, '.inputForm', 1)
+      uiElements.textContentForElement('.choiceThree', `Size (SmallShip, MediumShip, LargeShip)`);
+      uiElements.createElement('input', 'inputSS', null, '.inputForm', 1)
+      uiElements.setAttribute('.inputSS', 'type', 'radio', 'value', 'SmallShip', 'name', 'choiceThree', null, null)
+      uiElements.createElement('input', 'inputMS', null, '.inputForm', 1)
+      uiElements.setAttribute('.inputMS', 'type', 'radio', 'value', 'MediumShip', 'name', 'choiceThree', null, null)
+      uiElements.createElement('input', 'inputLS', null, '.inputForm', 1)
+      uiElements.setAttribute('.inputLS', 'type', 'radio', 'value', 'LargeShip', 'name', 'choiceThree', null, null)
+
+      uiElements.createElement('button', 'confirmInputBtn', null, '.inputForm', 1);
+      uiElements.setAttribute('.confirmInputBtn', 'type',  'button', null, null, null, null, null, null)
+      uiElements.textContentForElement('.confirmInputBtn', 'Confirm');
+      document.querySelector('.confirmInputBtn').addEventListener('click', () => {
+        const direction = document.querySelector('input[name="choiceTwo"]:checked');
+        const shipSize = document.querySelector('input[name="choiceThree"]:checked');
+        gameLoop.humanPlayer.gameBoard.placeShipOnSqr(clickedValue,  direction.value, shipSize.value);
+        document.querySelector('.inputForm').setAttribute('style', 'display: none')
+        clickedValue = ''
+      });
+
       document.querySelector('.quitGameBtn').addEventListener('click', () => {
         document.querySelector('.scoreDiv').remove();
         document.querySelector('.gridDiv').remove();
-        uiElements.createElement('div', 'mainMenuContainer', '.content', 1);
-        uiElements.createElement('button', 'startBtn', '.mainMenuContainer', 1);
+        uiElements.createElement('div', 'mainMenuContainer', null, '.content', 1);
+        uiElements.createElement('button', 'startBtn', null, '.mainMenuContainer', 1);
         uiElements.textContentForElement('.startBtn', 'START GAME');
+        humanPlayer = Player('HUMAN');
+        aiPlayer = Player('HAL3000');
         gameLoop.generateGameElements();
       });
 
-      //restart button
+      document.querySelector('.rndShipPlacementBtn').addEventListener('click', () => {
+        playerPlacementLoop()
+      });
+
+      document.querySelector('.newRoundBtn').addEventListener('click', () => {
+        for (let i = 1; i <= 100; i++) {
+          uiElements.textContentForElement(`.humanSquare${i}`, `${humanPlayer.gameBoard.gameBoardSqrs[i - 1].westByNorth}`);
+        };
+        for (let i = 1; i <= 100; i++) {
+          uiElements.textContentForElement(`.aiSquare${i}`, `${aiPlayer.gameBoard.gameBoardSqrs[i - 1].westByNorth}`);
+        };
+        humanPlayer.generateNewGameBoard('HUMAN')
+        aiPlayer.generateNewGameBoard('HAL3000')
+        aiPlacementLoop();
+      });
+
+      aiPlacementLoop();
     });
   };
   
@@ -78,6 +147,22 @@ const gameLoop = (() => {
 
 export default gameLoop;
 
-// add endgame where score is added to winner and game contiuned with same players
-// endgame should be triggered from checkShipSunkStatus from player gameboard
-// add possibility to restart game
+// BUT next first thing is to put in event for start btn aiShip placement ++
+// and enable player manual ship placement on its board or via rnd ship placement btn
+// and until all ships are placed player cant attack ai grid, enabled only after placement
+// and, of cource, make it all visible to player
+
+// add new round UI functionality
+  // should reset player and ai grid
+  // should give blank grid for player and set enemy ships
+// add visible changes on player and ai grid at each turn
+  // should set player ships visible on board while ai ships are not visible until hit
+// add message to player informing about (mis)hit or getting (mis)hit
+// add visible score change in round and game is continued
+// add quit game where players are reset
+// add button for random ship placement for player ++
+// round end should declare that all ship are sunk and maybe 'freeze' board functionality
+// and at round end player should choose restart round or quit
+// round end should be triggered from checkShipSunkStatus from player gameboard
+
+// vidi kako ustvari možeš prikazati classListu u konzoli
