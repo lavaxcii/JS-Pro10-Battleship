@@ -4,4 +4,4 @@ Battleship game (w. webpack).
 
 //
 
-Live: ---
+Live: https://lavaxcii.github.io/JS-Pro10-Battleship/
