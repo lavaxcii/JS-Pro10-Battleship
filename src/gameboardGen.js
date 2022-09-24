@@ -60,29 +60,39 @@ const GameBoard = (name) => {
   const recieveAttack = function(coordinates, targetLocation) {
     for (let i = 0; i < gameBoardSqrs.length; i++) {
       if (gameBoardSqrs[i].westByNorth === coordinates && gameBoardSqrs[i].shipAnchored === true && gameBoardSqrs[i].locationHit === false) {
-        gameBoardSqrs[i].locationHit = true;
         for (let j = 0; j < shipsData.length; j++) { 
-          if (shipsData[j].name === gameBoardSqrs[i].shipAtLocation) {
+          if (shipsData[j].name === gameBoardSqrs[i].shipAtLocation && gameBoardSqrs[i].locationHit === false) {
+            gameBoardSqrs[i].locationHit = true;
             shipsData[j].hit();
             shipsData[j].isSunk();
             console.log(`SHOTS FIRED ON US! HIT AT ${gameBoardSqrs[i].westByNorth} ${name}!`);
             (name === 'HAL3000') ? gameLoop.aiPlayer.gameBoard.checkSunkStatus() : null;
             (name === 'HUMAN') ? gameLoop.humanPlayer.gameBoard.checkSunkStatus() : null;
-            (name === 'HAL3000') ? targetLocation.setAttribute('style', 'border: solid 2px red; color: red') : null;
+            (name === 'HAL3000') ? targetLocation.setAttribute('style', 'color: red') : null;
             (name === 'HAL3000') ? targetLocation.textContent = 'X' : null;
-            (name === 'HUMAN') ? targetLocation.setAttribute('style', 'border: solid 2px red; color: red') : null;
+            (name === 'HUMAN') ? targetLocation.setAttribute('style', 'color: red') : null;
             (name === 'HUMAN') ? targetLocation.textContent = 'X' : null;
             (name === 'HAL3000') ? gameLoop.turnLogic() : null;
           };
         };
-      } else if (gameBoardSqrs[i].westByNorth === coordinates && gameBoardSqrs[i].locationHit === false) {
+      } else if (gameBoardSqrs[i].westByNorth === coordinates && gameBoardSqrs[i].shipAnchored === false && gameBoardSqrs[i].locationHit === false) {
         gameBoardSqrs[i].locationHit = true;
         console.log(`SHOTS FIRED ON US! AMISS AT ${gameBoardSqrs[i].westByNorth} ${name}!`);
         (name === 'HAL3000') ? gameLoop.aiPlayer.gameBoard.checkSunkStatus() : null;
         (name === 'HUMAN') ? gameLoop.humanPlayer.gameBoard.checkSunkStatus() : null;
-        (name === 'HAL3000') ? targetLocation.setAttribute('style', 'border: solid 2px red') : null;
-        (name === 'HUMAN') ? targetLocation.setAttribute('style', 'border: solid 2px red') : null;
+        (name === 'HAL3000') ? targetLocation.setAttribute('style', 'color: red') : null;
+        (name === 'HUMAN') ? targetLocation.setAttribute('style', 'color: red') : null;
         (name === 'HAL3000') ? gameLoop.turnLogic() : null;
+      } else if (gameBoardSqrs[i].westByNorth === coordinates && gameBoardSqrs[i].shipAnchored === false && gameBoardSqrs[i].locationHit === true) {
+        (name === 'HUMAN') ? console.log('-------------------------------') : null;
+        (name === 'HUMAN') ? console.log('HAL is trying again') : null;
+        (name === 'HUMAN') ? console.log('-------------------------------') : null;
+        (name === 'HUMAN') ? gameLoop.turnLogic() : null;
+      } else if (gameBoardSqrs[i].westByNorth === coordinates && gameBoardSqrs[i].shipAnchored === true && gameBoardSqrs[i].locationHit === true) {
+        (name === 'HUMAN') ? console.log('-------------------------------') : null;
+        (name === 'HUMAN') ? console.log('HAL is trying again') : null;
+        (name === 'HUMAN') ? console.log('-------------------------------') : null;
+        (name === 'HUMAN') ? gameLoop.turnLogic() : null;
       };
     };
   };
