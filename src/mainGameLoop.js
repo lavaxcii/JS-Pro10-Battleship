@@ -70,6 +70,7 @@ const gameLoop = (() => {
           clickedValue = parseInt(clicked.srcElement.innerText);
           clickedSquare = clicked.originalTarget.classList[1];
           document.querySelector(`.${clickedSquare}`).setAttribute('style', 'border: solid 2px red');
+          document.querySelector(`.playerGrid`).setAttribute('style', 'pointer-events: none');
           document.querySelector('.inputForm').setAttribute('style', 'display: visible');
         });
         uiElements.textContentForElement(`.humanSquare${i}`, `${humanPlayer.gameBoard.gameBoardSqrs[i - 1].westByNorth}`);
@@ -89,7 +90,7 @@ const gameLoop = (() => {
       // and when player confirms input it goes out invisible againe
       // should add no possibility to attack ai until all ships are placed on player booard
       // see how to disable events on elements, you already did that in some earlier projects
-      uiElements.createElement('form', 'inputForm', null, '.playerGrid', 1)
+      uiElements.createElement('form', 'inputForm', null, '.gridDiv', 1)
       uiElements.setAttribute('.inputForm', 'style', 'display: none', 'action', '', null, null)
 
       // uzmi od clicked value za kooridinatu i to ćeš prosljediti u placeShipOnSqr
@@ -127,6 +128,7 @@ const gameLoop = (() => {
         document.querySelector('.inputForm').setAttribute('style', 'display: none')
         document.querySelector(`.${clickedSquare}`).setAttribute('style', 'border: solid 2px rgb(114, 123, 20)');
         humanPlayer.gameBoard.placeShipOnSqr(clickedValue,  direction.value, shipSize.value);
+        document.querySelector(`.playerGrid`).setAttribute('style', 'pointer-events: all');
         if (humanPlayer.gameBoard.shipsData.every(function(ship) {
           // it doesn't work as intended in plaxeShipOnSqr method
           return ship.shipPlacedOnBoard === true
