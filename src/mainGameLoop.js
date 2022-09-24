@@ -29,6 +29,7 @@ const gameLoop = (() => {
         return ship.shipPlacedOnBoard === false
       }));
     };
+    uiElements.setAttribute('.aiGrid', 'style', 'pointer-events: all')
   };
 
   const turnLogic = function() {
@@ -36,9 +37,9 @@ const gameLoop = (() => {
     let coordinate;
     do {
       coordinate = humanPlayer.westByNorthAi();
-    } while (document.querySelector(`.humanSquare${coordinate - 10}`) === null);
-    let playerHitSquare = document.querySelector(`.humanSquare${coordinate - 10}`);
-    console.log('HAL is choosen radnom number: ' + coordinate)
+    } while (document.querySelector(`.humanWestByNorth${coordinate}`) === null);
+    let playerHitSquare = document.querySelector(`.humanWestByNorth${coordinate}`);
+    console.log('HAL choose random number: ' + coordinate)
     console.log('HAL is targeting: ' + playerHitSquare)
     humanPlayer.gameBoard.recieveAttack(coordinate, playerHitSquare);
   }
@@ -126,6 +127,13 @@ const gameLoop = (() => {
         document.querySelector('.inputForm').setAttribute('style', 'display: none')
         document.querySelector(`.${clickedSquare}`).setAttribute('style', 'border: solid 2px rgb(114, 123, 20)');
         humanPlayer.gameBoard.placeShipOnSqr(clickedValue,  direction.value, shipSize.value);
+        if (humanPlayer.gameBoard.shipsData.every(function(ship) {
+          // it doesn't work as intended in plaxeShipOnSqr method
+          return ship.shipPlacedOnBoard === true
+        })) {
+          console.log('Brah')
+          uiElements.setAttribute('.aiGrid', 'style', 'pointer-events: all')
+        }
         clickedValue = null;
         clickedSquare = null;
       });
@@ -157,9 +165,11 @@ const gameLoop = (() => {
         humanPlayer.generateNewGameBoard('HUMAN')
         aiPlayer.generateNewGameBoard('HAL3000')
         aiPlacementLoop();
+        uiElements.setAttribute('.aiGrid', 'style', 'pointer-events: none');
       });
 
       aiPlacementLoop();
+      uiElements.setAttribute('.aiGrid', 'style', 'pointer-events: none');
     });
   };
   

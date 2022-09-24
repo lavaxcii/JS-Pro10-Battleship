@@ -8,9 +8,9 @@ const uiElements = (() => {
       createElement.classList.add(className);
       createElement.classList.add(className + i);
       if (specialClassName !== null && specialClassName === 'humanPlayer') {
-        createElement.classList.add(gameLoop.humanPlayer.gameBoard.gameBoardSqrs[i - 1].westByNorth)
+        createElement.classList.add(`humanWestByNorth${gameLoop.humanPlayer.gameBoard.gameBoardSqrs[i - 1].westByNorth}`)
       } else if (specialClassName !== null && specialClassName === 'aiPlayer') {
-        createElement.classList.add(gameLoop.aiPlayer.gameBoard.gameBoardSqrs[i - 1].westByNorth)
+        createElement.classList.add(`aiWestByNorth${gameLoop.aiPlayer.gameBoard.gameBoardSqrs[i - 1].westByNorth}`)
       }
       qSelector.appendChild(createElement);
     };

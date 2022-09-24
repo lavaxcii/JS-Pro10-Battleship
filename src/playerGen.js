@@ -6,7 +6,8 @@ const Player = (name) => {
   let playerName = name;
   
   const updateScore = function() {
-    return this.score++
+    this.score += 1;
+    return console.log('SCORE UPDATE!' + this.score);
   }
 
   const rndNrAi = function (upperLimit, inclusiveOrNot) {

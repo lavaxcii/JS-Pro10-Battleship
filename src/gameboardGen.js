@@ -68,9 +68,9 @@ const GameBoard = (name) => {
             console.log(`SHOTS FIRED ON US! HIT AT ${gameBoardSqrs[i].westByNorth} ${name}!`);
             (name === 'HAL3000') ? gameLoop.aiPlayer.gameBoard.checkSunkStatus() : null;
             (name === 'HUMAN') ? gameLoop.humanPlayer.gameBoard.checkSunkStatus() : null;
-            (name === 'HAL3000') ? targetLocation.setAttribute('style', 'color: red') : null;
+            (name === 'HAL3000') ? targetLocation.setAttribute('style', 'color: red; font-size: 20px') : null;
             (name === 'HAL3000') ? targetLocation.textContent = 'X' : null;
-            (name === 'HUMAN') ? targetLocation.setAttribute('style', 'color: red') : null;
+            (name === 'HUMAN') ? targetLocation.setAttribute('style', 'color: red; font-size: 25px') : null;
             (name === 'HUMAN') ? targetLocation.textContent = 'X' : null;
             (name === 'HAL3000') ? gameLoop.turnLogic() : null;
           };
@@ -80,8 +80,8 @@ const GameBoard = (name) => {
         console.log(`SHOTS FIRED ON US! AMISS AT ${gameBoardSqrs[i].westByNorth} ${name}!`);
         (name === 'HAL3000') ? gameLoop.aiPlayer.gameBoard.checkSunkStatus() : null;
         (name === 'HUMAN') ? gameLoop.humanPlayer.gameBoard.checkSunkStatus() : null;
-        (name === 'HAL3000') ? targetLocation.setAttribute('style', 'color: red') : null;
-        (name === 'HUMAN') ? targetLocation.setAttribute('style', 'color: red') : null;
+        (name === 'HAL3000') ? targetLocation.setAttribute('style', 'color: red; font-size: 20px') : null;
+        (name === 'HUMAN') ? targetLocation.setAttribute('style', 'color: red; font-size: 25px') : null;
         (name === 'HAL3000') ? gameLoop.turnLogic() : null;
       } else if (gameBoardSqrs[i].westByNorth === coordinates && gameBoardSqrs[i].shipAnchored === false && gameBoardSqrs[i].locationHit === true) {
         (name === 'HUMAN') ? console.log('-------------------------------') : null;
@@ -401,21 +401,39 @@ const GameBoard = (name) => {
               j = 0;
               shipCounter = 1;
               return;
-            }
-          }
+            };
+          };
           shipCounter++
           (shipCounter > 3) ? shipCounter = 1 : null;
-        }
-      } else if (shipsData === null) {
-        return;
-      }
-    }
+        };
+      } ;
+    };
   };
 
   const checkSunkStatus = function() {
     if (shipsData.every(function(ship) {
         return ship.shipLength === 0
     })) {
+      if (name === 'HAL3000') {
+        uiElements.createElement('p', 'sunkStatusMessage', null, '.gridDiv', 1);
+        uiElements.textContentForElement('.sunkStatusMessage', `${name} is LOSER`)
+        setTimeout(() => {
+          document.querySelector('.sunkStatusMessage').remove();
+        }, 3000);
+        gameLoop.aiPlayer.updateScore();
+
+        uiElements.textContentForElement('.playerScore', `${gameLoop.aiPlayer.score}`);
+        uiElements.setAttribute('.aiGrid', 'style', 'pointer-events: none');
+      } else if (name === 'HUMAN') {
+        uiElements.createElement('p', 'sunkStatusMessage', null, '.gridDiv', 1);
+        uiElements.textContentForElement('.sunkStatusMessage', `${name} is LOSER`)
+        setTimeout(() => {
+        document.querySelector('.sunkStatusMessage').remove();
+        }, 3000);
+        gameLoop.humanPlayer.updateScore();
+        uiElements.textContentForElement('.aiScore', `${gameLoop.humanPlayer.score}`);
+        uiElements.setAttribute('.aiGrid', 'style', 'pointer-events: none');
+      }
       console.log('All ships are sunk!')
       // možda alert gdje biraš restart ili quit
     } else {

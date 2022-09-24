@@ -1,5 +1,5 @@
 * {
-  transition: 0.3s ease;
+  transition: 0.5s ease;
   font-size: 1rem;
   color: black;
 }
@@ -33,6 +33,7 @@ p {
   font-size: 30px;
   border: outset 5px rgb(120, 68, 169);
   padding: 1rem;
+  background-color: rgb(20, 67, 20);
 }
 
 div {
@@ -126,6 +127,14 @@ div {
   background-image: linear-gradient(90deg, rgb(50, 65, 35), rgb(52, 88, 32));
 }
 
+.sunkStatusMessage {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(90deg, rgb(50, 65, 35), rgb(52, 88, 32));
+}
+
 .playerGrid,
 .aiGrid {
   border: none;
@@ -160,6 +169,7 @@ label {
   padding-top: 2.6rem;
   padding-bottom: 2.6rem;
   border-left: none;
+  pointer-events: none;
 }
 
 .playerGrid {
@@ -168,16 +178,16 @@ label {
 
 .humanSquare {
   text-align: center;
-  height: 30px;
-  width: 30px;
+  height: 35px;
+  width: 35px;
   border: solid 2px rgb(114, 123, 20);
   padding: 0.2rem;
 }
 
 .aiSquare {
   text-align: center;
-  height: 25px;
-  width: 25px;
+  height: 30px;
+  width: 30px;
   border: solid 2px rgb(116, 125, 20);
   padding: 0.2rem;
 }
