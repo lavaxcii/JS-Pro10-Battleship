@@ -2,12 +2,6 @@ import Player from "./playerGen"
 import uiElements from './uiElements';
 
 const gameLoop = (() => {
-
-  // here should be conditional which upon new game or restart game declares again
-  // these same variables with same assigment
-  // and second case should be continuance of game with adding scores to players and
-  // reseting game boards for new game
-
   let humanPlayer = Player('HUMAN');
   let aiPlayer = Player('HAL3000');
 
@@ -85,15 +79,8 @@ const gameLoop = (() => {
         uiElements.textContentForElement(`.aiSquare${i}`, `${aiPlayer.gameBoard.gameBoardSqrs[i - 1].westByNorth}`);
       };
 
-      // here be form for ship placement, but maybe put in the middle of player grid
-      // albeit invisible and only when square is clicked is made visible
-      // and when player confirms input it goes out invisible againe
-      // should add no possibility to attack ai until all ships are placed on player booard
-      // see how to disable events on elements, you already did that in some earlier projects
       uiElements.createElement('form', 'inputForm', null, '.gridDiv', 1)
       uiElements.setAttribute('.inputForm', 'style', 'display: none', 'action', '', null, null)
-
-      // uzmi od clicked value za kooridinatu i to ćeš prosljediti u placeShipOnSqr
 
       uiElements.createElement('label', 'choiceTwo', null, '.inputForm', 1)
       uiElements.textContentForElement('.choiceTwo', 'Direction (N, S, W, E):');
@@ -114,10 +101,6 @@ const gameLoop = (() => {
       uiElements.setAttribute('.inputMS', 'type', 'radio', 'value', 'MediumShip', 'name', 'choiceThree', null, null)
       uiElements.createElement('input', 'inputLS', null, '.inputForm', 1)
       uiElements.setAttribute('.inputLS', 'type', 'radio', 'value', 'LargeShip', 'name', 'choiceThree', null, null)
-
-      // add safeguard when all players ships are places manually or with random button ++
-      // add highligh when square for manual placement is clicked
-
 
       uiElements.createElement('button', 'confirmInputBtn', null, '.inputForm', 1);
       uiElements.setAttribute('.confirmInputBtn', 'type',  'button', null, null, null, null, null, null)
@@ -180,23 +163,3 @@ const gameLoop = (() => {
 })();
 
 export default gameLoop;
-
-// BUT next first thing is to put in event for start btn aiShip placement ++
-// and enable player manual ship placement on its board or via rnd ship placement btn
-// and until all ships are placed player cant attack ai grid, enabled only after placement
-// and, of cource, make it all visible to player
-
-// add new round UI functionality
-  // should reset player and ai grid
-  // should give blank grid for player and set enemy ships
-// add visible changes on player and ai grid at each turn
-  // should set player ships visible on board while ai ships are not visible until hit
-// add message to player informing about (mis)hit or getting (mis)hit
-// add visible score change in round and game is continued
-// add quit game where players are reset
-// add button for random ship placement for player ++
-// round end should declare that all ship are sunk and maybe 'freeze' board functionality
-// and at round end player should choose restart round or quit
-// round end should be triggered from checkShipSunkStatus from player gameboard
-
-// vidi kako ustvari možeš prikazati classListu u konzoli

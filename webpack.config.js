@@ -9,12 +9,6 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     sourceMapFilename: "main.js.map"
   },
-  // plugins: [
-  //   new HtmlWebpackPlugin({
-  //   title: 'Development',
-  //   }),
-  // ],
-  // watch: true,
   module: {
     rules: [
       {

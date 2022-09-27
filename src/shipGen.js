@@ -1,7 +1,6 @@
 const Ship = (shipSizeLength, shipNrForName, shipNr) => {
   let name = `${shipNrForName}`;
   let shipLength = shipSizeLength;
-  // let shipIndex = shipNr - 1;
   let shipPlacedOnBoard = false;
 
   const hit = function() {

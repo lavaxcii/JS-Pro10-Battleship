@@ -1,5 +1,4 @@
 import GameBoard from './gameboardGen'
-import gameLoop from './mainGameLoop';
 
 const Player = (name) => {
   let score = 0;
@@ -29,7 +28,6 @@ const Player = (name) => {
   let gameBoard = GameBoard(`${name}`);
   const generateNewGameBoard = function() {
     this.gameBoard = GameBoard(`${name}`);
-    // gameLoop.aiPlacementLoop();
   }
 
   return { playerName, score, updateScore, westByNorthAi, directionOfPlacementAi, shipNameAi, gameBoard, generateNewGameBoard }

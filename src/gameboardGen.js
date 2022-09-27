@@ -435,10 +435,8 @@ const GameBoard = (name) => {
         uiElements.setAttribute('.aiGrid', 'style', 'pointer-events: none');
       }
       console.log('All ships are sunk!')
-      // možda alert gdje biraš restart ili quit
     } else {
       console.log('Some ships still afloat!')
-      // ništa
     };
   };
 
